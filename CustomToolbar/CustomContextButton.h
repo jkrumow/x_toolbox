@@ -34,6 +34,6 @@
 /**
  Set to `YES`to hide the contextMenu when the button has been pressed.
  */
-@property (nonatomic, unsafe_unretained) BOOL hidesContextButtonsWhenPressed;
+@property (nonatomic, assign) BOOL hidesContextButtonsWhenPressed;
 
 @end

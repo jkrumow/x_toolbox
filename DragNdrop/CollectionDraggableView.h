@@ -31,6 +31,6 @@
  */
 @interface CollectionDraggableView : UIView
 
-@property (unsafe_unretained, nonatomic) CGSize touchOffset;
+@property (assign, nonatomic) CGSize touchOffset;
 
 @end

@@ -36,7 +36,7 @@
 /**
  Set to `YES` to add a shadow at the top edge of the CustomToolBar.
  */
-@property (unsafe_unretained, nonatomic) BOOL showsShadow;
+@property (assign, nonatomic) BOOL showsShadow;
 
 /**
  Adds an array of context buttons to a tool bar button.

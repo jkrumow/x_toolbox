@@ -31,7 +31,7 @@
 
 @interface CustomToolBar()
 
-@property (unsafe_unretained, nonatomic) NSInteger toolBarButtonIndex;
+@property (assign, nonatomic) NSInteger toolBarButtonIndex;
 
 @property (strong, nonatomic) NSMutableDictionary *contextButtonsForToolBar;
 @property (strong, nonatomic) UIView *contextButtonView;
