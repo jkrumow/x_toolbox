@@ -53,7 +53,7 @@
 @property (assign, nonatomic) CGPoint connectionHandleAncorPoint;
 @property (assign, nonatomic) CGRect segmentRect;
 
-@property (nonatomic, strong) UIView *contentView;
+@property (strong, nonatomic) UIView *contentView;
 
 /**
  Resets all connections.
