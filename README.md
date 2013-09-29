@@ -17,6 +17,9 @@ TODO: write useful installation instructions.
 
 ## Content
 
+* CollectionCanvas
+    * A canvas with moveable nodes. Nodes can be connected.
+    
 * CustomToolbar
     * Fancy little toolbar with sliding buttons.
 
