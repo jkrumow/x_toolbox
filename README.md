@@ -21,7 +21,7 @@ TODO: write useful installation instructions.
     * Fancy little toolbar with sliding buttons.
 
 * DocumentationKit
-    * Adds scripts and configuration to generate DocSets from inside Xcode.
+    * Adds scripts and configuration to generate DocSets from inside Xcode using [appledoc](https://github.com/tomaz/appledoc#quick-install).
     
 * DragNDrop
     * Contract for drag and drop between view controllers. Consists of protocols and classes.
