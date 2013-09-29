@@ -43,8 +43,35 @@
 /**
  Checks wether the given CGPoint is a valid drop location.
  
+ @param draggableView The CollectionDraggableView in question
+ @param point         The center point of the given view
+ 
  @return `YES` if drop location is valid.
  */
-- (BOOL)canDropItemAtPoint:(CGPoint)point;
+- (BOOL)canDropView:(CollectionDraggableView *)draggableView atPoint:(CGPoint)point;
+
+/**
+ The draggable view has been moved to the specified location.
+ 
+ @param draggableView The CollectionDraggableView in question
+ @param point         The center point of the given view
+ */
+- (void)draggableView:(CollectionDraggableView *)draggableView movedToPoint:(CGPoint)point;
+
+/**
+ The draggable view has been dropped above the specified location.
+ 
+ @param draggableView The CollectionDraggableView in question
+ @param point         The center point of the given view
+ */
+- (void)draggableView:(CollectionDraggableView *)draggableView droppedAtPoint:(CGPoint)point;
+
+/**
+ Moving the draggable view has been cancelled above the specified location.
+ 
+ @param draggableView The CollectionDraggableView in question
+ @param point         The center point of the given view
+ */
+- (void)draggableView:(CollectionDraggableView *)draggableView cancelledDraggingAtPoint:(CGPoint)point;
 
 @end
