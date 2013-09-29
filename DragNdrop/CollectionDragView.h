@@ -36,8 +36,8 @@
  */
 @interface CollectionDragView : UICollectionView <UIGestureRecognizerDelegate>
 
-@property (unsafe_unretained, nonatomic) id<CollectionDragViewDataSource> collectionDragViewDataSource;
-@property (unsafe_unretained, nonatomic) id<CollectionDragViewDelegate> collectionDragViewDelegate;
+@property (weak, nonatomic) id<CollectionDragViewDataSource> collectionDragViewDataSource;
+@property (weak, nonatomic) id<CollectionDragViewDelegate> collectionDragViewDelegate;
 
 @end
 
