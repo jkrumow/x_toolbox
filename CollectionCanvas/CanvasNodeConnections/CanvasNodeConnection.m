@@ -63,13 +63,6 @@
  */
 - (CGSize)calculateIntersectionOffsetForLineFrom:(CGPoint)start toPoint:(CGPoint)end forNodeView:(CanvasNodeView *)nodeView;
 
-/**
- Returns a closed area around the connection line.
- 
- @return A CGPathRef enclosing the connection line.
- */
-- (CGPathRef)tappableAreaAroundLine;
-
 @end
 
 
@@ -204,12 +197,6 @@
     return intersectionPoint;
 }
 
-- (CGPathRef)tappableAreaAroundLine
-{
-    // Creates a hit test area used within checkTouchIsValid:
-    return CGPathCreateCopyByStrokingPath(shapeLayer.path, NULL, fmaxf(35.0f, shapeLayer.lineWidth), kCGLineCapRound, kCGLineJoinMiter, shapeLayer.miterLimit);
-}
-
 #pragma mark - Animating
 
 - (void)suspenderSnapAnimation
@@ -283,8 +270,10 @@
 - (BOOL)checkTouchIsValid:(CGPoint)touch
 {
     CGPoint localTouch = [self convertPoint:touch fromView:self.superview];
-    CGPathRef tappableArea = [self tappableAreaAroundLine];
-    return CGPathContainsPoint(tappableArea, NULL, localTouch, true);
+    CGPathRef tappableArea = CGPathCreateCopyByStrokingPath(shapeLayer.path, NULL, fmaxf(35.0f, shapeLayer.lineWidth), kCGLineCapRound, kCGLineJoinMiter, shapeLayer.miterLimit);
+    BOOL isValid = CGPathContainsPoint(tappableArea, NULL, localTouch, true);
+    CGPathRelease(tappableArea);
+    return isValid;
 }
 
 @end
