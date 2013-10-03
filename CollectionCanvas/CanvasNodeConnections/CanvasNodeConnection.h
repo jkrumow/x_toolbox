@@ -62,11 +62,9 @@
  Initializes the CanvasNodeConnection object with a given CGRect and the value of parentIndex and childIndex.
  
  @param frame The frame of the CanvasNodeConnection view
- @param parentIndex The index of the parent CanvasNodeView
- @param childIndex  The index of the child CanvasNodeView
  @return The initialized CanvasNodeConnection object
  */
-- (id)initWithFrame:(CGRect)frame parentIndex:(NSUInteger)parentIndex childIndex:(NSUInteger)childIndex;
+- (id)initWithFrame:(CGRect)frame;
 
 /**
  Destroys all views and connections and wipes the canvas.

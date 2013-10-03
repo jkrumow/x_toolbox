@@ -70,7 +70,8 @@
 
 @synthesize parentIndex = _parentIndex;
 @synthesize childIndex = _childIndex;
-@synthesize parentNode, childNode;
+@synthesize parentNode = _parentNode;
+@synthesize childNode = _childNode;
 @synthesize canvasNodeConnectionDelegate;
 @synthesize moveConnectionHandle;
 @synthesize colorString;
@@ -78,13 +79,13 @@
 @synthesize visibleEndPoint;
 @synthesize valid = _valid;
 
-- (id)initWithFrame:(CGRect)frame parentIndex:(NSUInteger)parentIndex childIndex:(NSUInteger)childIndex
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         
-        _parentIndex = parentIndex;
-        _childIndex = childIndex;
+        _parentIndex = -1;
+        _childIndex = -1;
         
         _valid = YES;
         self.backgroundColor = [UIColor clearColor];
@@ -118,8 +119,8 @@
 
 - (void)reset
 {
-    parentNode = nil;
-    childNode = nil;
+    _parentNode = nil;
+    _childNode = nil;
 }
 
 #pragma mark - Drawing
@@ -127,8 +128,8 @@
 - (void)drawConnection
 {
     self.frame = CGRectUnion(self.parentNode.frame, self.childNode.frame);
-    CGPoint start = [self convertPoint:parentNode.center fromView:self.superview];
-    CGPoint end   = [self convertPoint:childNode.center fromView:self.superview];
+    CGPoint start = [self convertPoint:_parentNode.center fromView:self.superview];
+    CGPoint end   = [self convertPoint:_childNode.center fromView:self.superview];
     
     [self drawConnectionFromPoint:start toPoint:end];
 }
@@ -274,6 +275,18 @@
     BOOL isValid = CGPathContainsPoint(tappableArea, NULL, localTouch, true);
     CGPathRelease(tappableArea);
     return isValid;
+}
+
+- (void)setParentNode:(CanvasNodeView *)parentNode
+{
+    _parentNode = parentNode;
+    _parentIndex = parentNode.tag;
+}
+
+- (void)setChildNode:(CanvasNodeView *)childNode
+{
+    _childNode = childNode;
+    _childIndex = childNode.tag;
 }
 
 @end
