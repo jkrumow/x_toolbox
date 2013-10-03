@@ -59,7 +59,7 @@ CGFloat const CONTENT_HEIGHT = 1000.0;
  
  @param scale The zoom scale.
  */
-- (void)setZoomScale:(float)scale
+- (void)setZoomScale:(CGFloat)scale
 {
     [super setZoomScale:scale];
     [self.collectionCanvasView zoomToScale:scale];

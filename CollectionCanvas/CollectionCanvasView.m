@@ -425,7 +425,7 @@ static CGFloat OUTER_FILEVIEW_MARGIN    = 40.0;
     [self ticktockSegment:segmentNodes];
     
     // Bring headnodes to fromt - descending - parent first.
-    for (int i=headNodes.count-1; i>=0; i--)
+    for (NSInteger i=headNodes.count-1; i>=0; i--)
         [self bringSubviewToFront:(UIView *)[headNodes objectAtIndex:i]];
     
     // Cleanup.
@@ -470,8 +470,8 @@ static CGFloat OUTER_FILEVIEW_MARGIN    = 40.0;
         // Iterate through all connections.
         for (CanvasNodeConnection *nodeConnection in nodeConnections) {
             
-            int parentTag = nodeConnection.parentIndex;
-            int childTag  = nodeConnection.childIndex;
+            NSUInteger parentTag = nodeConnection.parentIndex;
+            NSUInteger childTag  = nodeConnection.childIndex;
             
             CanvasNodeView *parentView = [_nodeViews objectAtIndex:parentTag];
             CanvasNodeView *childView = [_nodeViews objectAtIndex:childTag];
@@ -1135,8 +1135,8 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
         
         // Swing the visible node views to a natural treeSegment.
         if ([nodeItem isKindOfClass:[CanvasNodeView class]]) {
-            srand(clock());
-            float random = ((1.0 + rand()%10) / 10.0);
+            srand48(clock());
+            CGFloat random = ((1.0 + rand()%10) / 10.0);
             if (ticktock++ % 2 == 0) random *= -1.0;
             CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_4 * 0.1 / random);
             nodeItem.transform = transform;
@@ -1436,7 +1436,7 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
 
 - (NSMutableArray *)segmentForCanvasNodeView:(CanvasNodeView *)canvasNodeView
 {
-    NSString *key = [NSString stringWithFormat:@"%i", canvasNodeView.tag];
+    NSString *key = [NSString stringWithFormat:@"%li", (long)canvasNodeView.tag];
     NSMutableArray *segmentBelowNode = [_segmentsBelowNode objectForKey:key];
     
     if (segmentBelowNode == nil) {

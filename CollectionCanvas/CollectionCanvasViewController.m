@@ -144,7 +144,7 @@
     return self.collectionCanvasScrollView.collectionCanvasView;
 }
 
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
 {
     [self.collectionCanvasScrollView.collectionCanvasView zoomToScale:scale];
 }
