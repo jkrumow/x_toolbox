@@ -63,7 +63,6 @@
 {
     if (self.collectionCanvasScrollView) {
         
-        self.collectionCanvasScrollView.zoomScale = 1.0;
         self.collectionCanvasScrollView.contentOffset = CGPointMake(0.0, 0.0);
         
         [self.collectionCanvasScrollView.collectionCanvasView clearCanvas];
@@ -77,10 +76,9 @@
 {
     [super viewDidLoad];
     
-    self.collectionCanvasScrollView.zoomScale = 1.0;
-    self.collectionCanvasScrollView.contentOffset = CGPointMake(0.0, 0.0);
-    
     [self loadCanvas];
+    [self toggleConnectMode];
+    self.collectionCanvasScrollView.zoomScale = 0.5;
 }
 
 - (void)viewDidUnload
