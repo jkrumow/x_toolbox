@@ -426,7 +426,7 @@ static CGFloat OUTER_FILEVIEW_MARGIN    = 40.0;
     
     // Bring headnodes to fromt - descending - parent first.
     for (NSInteger i=headNodes.count-1; i>=0; i--)
-        [self bringSubviewToFront:(UIView *)[headNodes objectAtIndex:i]];
+        [self bringSubviewToFront:(UIView *)headNodes[i]];
     
     // Cleanup.
     [headNodes removeAllObjects];
@@ -473,8 +473,8 @@ static CGFloat OUTER_FILEVIEW_MARGIN    = 40.0;
             NSUInteger parentTag = nodeConnection.parentIndex;
             NSUInteger childTag  = nodeConnection.childIndex;
             
-            CanvasNodeView *parentView = [_nodeViews objectAtIndex:parentTag];
-            CanvasNodeView *childView = [_nodeViews objectAtIndex:childTag];
+            CanvasNodeView *parentView = _nodeViews[parentTag];
+            CanvasNodeView *childView = _nodeViews[childTag];
             
             // add a new connection and connect both ends.
             CanvasNodeConnection *canvasNodeConnection = [[CanvasNodeConnection alloc] init];
@@ -592,7 +592,7 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
             CanvasNodeView *nodeView = (CanvasNodeView *)itemView;
             
             if (isInConnectMode) {
-                CanvasNewConnectionHandle *newHandle = [_moreHandles objectAtIndex:nodeView.tag];
+                CanvasNewConnectionHandle *newHandle = _moreHandles[nodeView.tag];
                 newHandle.center = CGPointMake(nodeView.center.x, nodeView.center.y + (nodeView.frame.size.height * 0.5));
             }
             
@@ -750,10 +750,10 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
     if (nodeView) {
         nodeView.tag = indexPath.row;
         nodeView.delegate = self;
-        nodeView.frame = [[_nodeViews objectAtIndex:indexPath.row] frame];
+        nodeView.frame = [_nodeViews[indexPath.row] frame];
         nodeView.zoomScale = zoomScale;
         
-        [_nodeViews replaceObjectAtIndex:indexPath.row withObject:nodeView];
+        _nodeViews[indexPath.row] = nodeView;
         [self addSubview:nodeView];
     }
 }
@@ -775,7 +775,7 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
         
         // Reindex remaining node views
         for (NSInteger i = indexPath.row; i < _nodeViews.count; i++)
-            ((CanvasNodeView *)[_nodeViews objectAtIndex:i]).tag = i;
+            ((CanvasNodeView *)_nodeViews[i]).tag = i;
         
         // Add new connection handle if necessary.
         if (isInConnectMode) {
@@ -786,7 +786,7 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
             
             // Reindex remaining handles
             for (NSInteger i = handle.tag; i < _moreHandles.count; i++)
-                ((CanvasNewConnectionHandle *)[_moreHandles objectAtIndex:i]).tag = i;
+                ((CanvasNewConnectionHandle *)_moreHandles[i]).tag = i;
             
             // Add new connection handle to node view.
             [self addSubview:handle];
@@ -842,17 +842,17 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
         
         // Reindex remaining node views
         for (NSInteger i = indexPath.row; i < _nodeViews.count; i++)
-            ((CanvasNodeView *)[_nodeViews objectAtIndex:i]).tag = i;
+            ((CanvasNodeView *)_nodeViews[i]).tag = i;
         
         // Remove new connection handle if necessary.
         if (isInConnectMode) {
-            CanvasNewConnectionHandle *handle = [_moreHandles objectAtIndex:nodeView.tag];
+            CanvasNewConnectionHandle *handle = _moreHandles[nodeView.tag];
             [handle removeFromSuperview];
             [_moreHandles removeObjectAtIndex:nodeView.tag];
             
             // Reindex remaining handles
             for (NSInteger i = handle.tag; i < _moreHandles.count; i++)
-                ((CanvasNewConnectionHandle *)[_moreHandles objectAtIndex:i]).tag = i;
+                ((CanvasNewConnectionHandle *)_moreHandles[i]).tag = i;
         }
         
         [nodeView removeFromSuperview];
@@ -861,7 +861,7 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
 
 - (CanvasNodeView *)nodeAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [_nodeViews objectAtIndex:indexPath.row];
+    return _nodeViews[indexPath.row];
 }
 
 - (void)updateThumbImage:(UIImage *)image forNodeViewAtIndexPath:(NSIndexPath *)indexPath
@@ -1413,7 +1413,7 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
 - (BOOL)canProcessCanvasNewConnectionHandle:(CanvasNewConnectionHandle *)canvasNewConnectionHandle
 {
     if ([self isInSingleTouchMode])
-        return ([_viewsTouched objectAtIndex:0] == canvasNewConnectionHandle);
+        return (_viewsTouched[0] == canvasNewConnectionHandle);
     
     if ([self isProcessingViews])
         return NO;
@@ -1424,7 +1424,7 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
 - (BOOL)canProcessCanvasMoveConnectionHandle:(CanvasMoveConnectionHandle *)canvasMoveConnectionHandle
 {
     if ([self isInSingleTouchMode])
-        return ([_viewsTouched objectAtIndex:0] == canvasMoveConnectionHandle);
+        return (_viewsTouched[0] == canvasMoveConnectionHandle);
     
     if ([self isProcessingViews])
         return NO;
@@ -1437,11 +1437,11 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
 - (NSMutableArray *)segmentForCanvasNodeView:(CanvasNodeView *)canvasNodeView
 {
     NSString *key = [NSString stringWithFormat:@"%li", (long)canvasNodeView.tag];
-    NSMutableArray *segmentBelowNode = [_segmentsBelowNode objectForKey:key];
+    NSMutableArray *segmentBelowNode = _segmentsBelowNode[key];
     
     if (segmentBelowNode == nil) {
         segmentBelowNode = [self collectSegmentBelowNode:canvasNodeView];
-        [_segmentsBelowNode setObject:segmentBelowNode forKey:key];
+        _segmentsBelowNode[key] = segmentBelowNode;
     }
     
     return segmentBelowNode;
@@ -1491,7 +1491,7 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
     [self killMenuTimer];
     
     if (isInConnectMode) {
-        CanvasNewConnectionHandle *handle = [_moreHandles objectAtIndex:canvasNodeView.tag];
+        CanvasNewConnectionHandle *handle = _moreHandles[canvasNodeView.tag];
         handle.center = CGPointMake(canvasNodeView.center.x, canvasNodeView.center.y + (canvasNodeView.frame.size.height / 2.0));
     }
     
@@ -1544,7 +1544,7 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
             [canvasViewDelegate didMoveNodeOnCanvasAtIndexPath:[NSIndexPath indexPathForRow:canvasNodeView.tag inSection:0] nodeView:canvasNodeView];
         
         if (isInConnectMode)
-            [self bringSubviewToFront:[_moreHandles objectAtIndex:canvasNodeView.tag]];
+            [self bringSubviewToFront:_moreHandles[canvasNodeView.tag]];
         
         [self sizeCanvasToFit];
         [self scrollNodeViewToVisible];
@@ -1602,7 +1602,7 @@ static CGFloat AUTOSCROLL_MARGIN        =  1.0;
     // Add the temporary connection object.
     _temporaryConnection = [[CanvasNodeConnection alloc] initWithFrame:CGRectZero];
     _temporaryConnection.canvasNodeConnectionDelegate = self;
-    _temporaryConnection.parentNode = [_nodeViews objectAtIndex:canvasNewConnectionHandle.tag];
+    _temporaryConnection.parentNode = _nodeViews[canvasNewConnectionHandle.tag];
     _temporaryConnection.zoomScale = zoomScale;
     [self addSubview:_temporaryConnection];
     
