@@ -183,7 +183,7 @@
     CGFloat centeredLayoutLeftEdge = [self calculateLeftEdge];
     
     for (NSUInteger i=0; i < self.toolBarButtons.count; i++) {
-        UIButton *button = [self.toolBarButtons objectAtIndex:i];
+        UIButton *button = (self.toolBarButtons)[i];
         
         CGRect frame = button.frame;
         frame.origin.x = centeredLayoutLeftEdge;
@@ -265,9 +265,9 @@
 {
     self.toolBarButtonIndex = toolBarButtonIndex;
     
-    if ([self.contextButtonsForToolBar objectForKey:[NSString stringWithFormat:@"%i", self.toolBarButtonIndex]]) {
+    if ((self.contextButtonsForToolBar)[[NSString stringWithFormat:@"%i", self.toolBarButtonIndex]]) {
         
-        NSMutableArray *contextButtons = (NSMutableArray *)[self.contextButtonsForToolBar objectForKey:[NSString stringWithFormat:@"%i", self.toolBarButtonIndex]];
+        NSMutableArray *contextButtons = (NSMutableArray *)(self.contextButtonsForToolBar)[[NSString stringWithFormat:@"%i", self.toolBarButtonIndex]];
         
         [self layoutContextButtons:contextButtons];
         
@@ -374,7 +374,7 @@
         for (CustomContextButton *contextButton in contextButtons)
             [contextButton addTarget:self action:@selector(didPressContextButton:) forControlEvents:UIControlEventTouchUpInside];
         
-        [self.contextButtonsForToolBar setObject:contextButtons forKey:[NSString stringWithFormat:@"%i", toolBarButtonIndex]];
+        (self.contextButtonsForToolBar)[[NSString stringWithFormat:@"%i", toolBarButtonIndex]] = contextButtons;
     } else
         [self.contextButtonsForToolBar removeObjectForKey:[NSString stringWithFormat:@"%i", toolBarButtonIndex]];
 }
