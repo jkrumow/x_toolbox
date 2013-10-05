@@ -28,6 +28,9 @@ TODO: write useful installation instructions.
     
 * DragNDrop
     * Contract for drag and drop between view controllers. Consists of protocols and classes.
+    
+    ![DragNDrop contract](https://github.com/tarbrain/x_toolbox/raw/master/documentation/images/DragNDrop.001.png)
+
 
 ## Usage
 
