@@ -18,7 +18,7 @@ Currently there is no installation necessary.
 
 ### CollectionCanvas
 
-A canvas with moveable nodes. Nodes can be connected.
+A canvas with moveable nodes. Nodes can be connected, collapsed and expanded.
 
 ### CustomToolbar
 
@@ -30,7 +30,7 @@ Adds scripts and configuration to generate DocSets from inside Xcode using [appl
 
 ### DragNDrop
 
-Classes and Protocols for drag and drop between view controllers. A draggable UIView can be pulled out of a ```UICollectionViewCell``` and dropped on another ```UIViewController```'s view.
+Classes and Protocols for drag and drop between view controllers. A draggable UIView can be pulled out of a ```UICollectionViewCell``` and dropped onto another ```UIViewController```'s view.
 
 ![DragNDrop diagram](https://github.com/tarbrain/x_toolbox/raw/master/documentation/images/DragNDrop.001.png)
 
