@@ -3,7 +3,7 @@
 
 ## Overview
 
-This library contains useful UI elements for iOS Apps
+This library contains useful building blocks for iOS Apps
 
 ## Requirements
 
@@ -18,7 +18,7 @@ Currently there is no installation necessary.
 
 ### CollectionCanvas
 
-A canvas with moveable nodes. Nodes can be connected, collapsed and expanded.
+A canvas with moveable nodes. Nodes can be added, deleted, moved, connected, collapsed and expanded.
 
 ### CustomToolbar
 
