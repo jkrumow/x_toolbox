@@ -16,10 +16,6 @@ Currently there is no installation necessary.
 
 ## Content
 
-### CollectionCanvas
-
-A canvas with moveable nodes. Nodes can be added, deleted, moved, connected, collapsed and expanded.
-
 ### CustomToolbar
 
 Fancy little toolbar with sliding buttons.
